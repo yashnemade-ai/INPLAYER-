@@ -81,7 +81,8 @@
             justify-content: center; align-items: center; text-align: center;
             padding: 120px 20px 60px;
         }
-        .hero h1 { font-size: clamp(45px, 10vw, 90px); font-weight: 900; line-height: 1; margin-bottom: 20px; letter-spacing: -3px; }
+        /* UPDATED PROFESSIONAL TITLE */
+        .hero h1 { font-size: clamp(45px, 10vw, 80px); font-weight: 900; line-height: 1.1; margin-bottom: 20px; letter-spacing: -2px; }
         .hero p { font-size: 19px; color: var(--text-sec); max-width: 700px; margin-bottom: 45px; }
 
         /* --- DOWNLOAD BUTTON --- */
@@ -94,7 +95,7 @@
         }
         .download-btn:hover { transform: scale(1.05) translateY(-5px); }
 
-        /* --- FEATURES CARDS WITH ANIMATION --- */
+        /* --- FEATURES CARDS --- */
         .features {
             display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px; padding: 100px 8%;
@@ -131,6 +132,13 @@
         .stars { display: flex; justify-content: center; gap: 12px; margin: 30px 0; }
         .star { font-size: 45px; cursor: pointer; color: #333; transition: 0.3s; }
         .star.selected { color: #ffcc00; text-shadow: 0 0 20px #ffcc00; }
+        
+        .submit-rate {
+            background: var(--accent); color: white; border: none;
+            padding: 16px 30px; border-radius: 18px; font-weight: 700;
+            cursor: pointer; width: 100%; font-size: 18px; transition: 0.3s;
+        }
+        .submit-rate:hover { background: #ff4d42; transform: translateY(-2px); }
 
         /* --- FOOTER --- */
         footer { text-align: center; padding: 100px 20px; border-top: 1px solid var(--border); }
@@ -141,7 +149,6 @@
 </head>
 <body>
 
-    <!-- Background Animation Wrapper -->
     <div class="bg-wrapper">
         <div class="animated-blob blob-1"></div>
         <div class="animated-blob blob-2"></div>
@@ -166,10 +173,10 @@
         <div style="background: var(--card-bg); padding: 8px 20px; border-radius: 30px; border: 1px solid var(--border); font-weight: 700; margin-bottom: 20px; font-size: 14px;">
             PLATINUM EDITION V8.0
         </div>
-        <h1>Pure Speed.<br>No Limits.</h1>
+        <!-- NEW PROFESSIONAL TITLE -->
+        <h1>Redefining The<br>Streaming Experience.</h1>
         <p>Experience ultra high-speed streams with no expiry. Engineered for the best Live TV and Movie experience on any Android device.</p>
         
-        <!-- 🔥 DIRECT DOWNLOAD LINK (GitHub /raw/ Fix) -->
         <a href="https://github.com/yashnemade-ai/INPLAYER-/raw/main/INPLAYER%2B.apk" class="download-btn">
             <svg width="28" height="28" fill="currentColor" viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
             Download Now
@@ -177,7 +184,6 @@
     </section>
 
     <section class="features">
-        <!-- Speed Card -->
         <div class="card">
             <div class="card-icon">
                 <svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
@@ -186,7 +192,6 @@
             <p>Our proprietary caching engine ensures instant playback with zero buffering on even 4G networks.</p>
         </div>
 
-        <!-- DRM Card -->
         <div class="card">
             <div class="card-icon">
                 <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.47 4.34-2.85 8.18-7 9.53V11.99H5V6.3l7-3.11v8.8z"/></svg>
@@ -195,7 +200,6 @@
             <p>Built-in support for Widevine, PlayReady, and ClearKey. Watch encrypted premium content without errors.</p>
         </div>
 
-        <!-- Multi-Device Card -->
         <div class="card">
             <div class="card-icon">
                 <svg viewBox="0 0 24 24"><path d="M21 3H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h5v2h8v-2h5c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 14H3V5h18v12z"/></svg>
@@ -204,7 +208,6 @@
             <p>Fully optimized for <b>Android Phones</b>, <b>Android TV</b>, and <b>Amazon FireTV Stick</b> with remote support.</p>
         </div>
 
-        <!-- Automation Card -->
         <div class="card">
             <div class="card-icon">
                 <svg viewBox="0 0 24 24"><path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46C19.54 15.03 20 13.57 20 12c0-4.42-3.58-8-8-8zm0 12c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 5.74C4.46 6.97 4 8.43 4 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z"/></svg>
@@ -267,18 +270,30 @@
         }
 
         function submitRating() {
-            if(ratingValue === 0) return alert("Select stars!");
+            if(ratingValue === 0) return alert("Please select stars!");
             const btn = document.getElementById('submitBtn');
             const title = document.getElementById('modal-title');
-            
-            btn.innerText = "Processing...";
+            btn.disabled = true;
+
             setTimeout(() => {
                 title.innerText = "Thank You!";
                 btn.style.background = "#4cd964";
                 btn.innerText = "Rating Added Successfully";
                 document.getElementById('star-container').style.display = 'none';
+                
+                // Modal automatically closes after success message
                 setTimeout(closeRating, 2000);
-            }, 1500);
+                
+                // Resetting for future use
+                setTimeout(() => {
+                   document.getElementById('star-container').style.display = 'flex';
+                   btn.disabled = false;
+                   btn.innerText = "Submit";
+                   btn.style.background = "var(--accent)";
+                   title.innerText = "Enjoying INPLAYER+?";
+                   setRating(0);
+                }, 2500);
+            }, 1200);
         }
     </script>
 </body>
